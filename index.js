@@ -22,6 +22,18 @@ app.get("/book-notes/add", (req, res) => {
     res.render("add");
 });
 
+app.get("/book-notes/edit/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+        res.render("edit", {
+            book: result.rows[0]
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 app.post("/book-notes/add", async (req, res) => {
     const { title, author, rating, isbn, notes } = req.body;
     try {
@@ -37,6 +49,17 @@ app.post("/book-notes/delete/:id", async (req, res) => {
     try {
         const id = req.params.id;
         await db.query("DELETE FROM books WHERE id = $1", [id]);
+        res.redirect("/");
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+app.post("/book-notes/edit/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { title, author, rating, notes } = req.body;
+        await db.query("UPDATE books SET title = $1, author = $2, rating = $3, notes = $4 WHERE id = $5", [title, author, rating, notes, id]);
         res.redirect("/");
     } catch (error) {
         console.log(error);

@@ -3,10 +3,16 @@
 <div class="bg-gray-200 min-h-screen p-6">
   <div class="container mx-auto">
     <a href="/book-notes/add" class="cursor-pointer rounded-md bg-blue-500 px-3 py-2 text-white hover:bg-blue-600">Add Book</a>
-    <h1 class="text-2xl font-semibold mt-5">My Book Notes</h1>
+    <div class="flex justify-between items-center mt-5">
+      <h1 class="text-2xl font-semibold">My Book Notes</h1>
+      <div class="flex gap-x-2 ">
+        <button class="sort-btn rounded-md bg-gray-300 px-3 py-2" data-sort="title">Sort by title</button>
+        <button class="sort-btn rounded-md bg-gray-300 px-3 py-2" data-sort="rating">Sort by rating</button>
+      </div>
+    </div>
     <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-5 gap-3">
       <% books.forEach(book => { %>
-        <div class="bg-white p-3 shadow hover:shadow-md rounded-md">
+        <div class="bg-white p-3 shadow hover:shadow-md rounded-md book-card">
           <img src="<%= book.cover %>" alt="<%= book.title %>" class="h-80 w-full object-cover" />
           <p class="text-lg font-semibold mt-2 truncate"><%= book.title %></p>
           <p class="text-gray-600 truncate"><%= book.author %></p>
@@ -25,9 +31,9 @@
           </div>
           <p class="truncate"><%= book.notes %></p>
           <div class="flex space-x-1 mt-2">
-            <button class="flex-1 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md">Edit</button>
-            <form action="/book-notes/delete/<%= book.id %>" method="POST">
-              <button type="submit" class="flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md">Delete</button>
+            <a href="/book-notes/edit/<%= book.id %>" class="flex-1 text-center bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md">Edit</a>
+            <form action="/book-notes/delete/<%= book.id %>" method="POST" class="flex-1">
+              <button type="submit" class="bg-red-500 hover:bg-red-600 w-full text-white px-3 py-2 rounded-md">Delete</button>
             </form>
           </div>
       </div>
