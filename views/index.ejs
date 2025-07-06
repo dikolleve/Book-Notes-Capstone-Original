@@ -12,7 +12,7 @@
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-5 gap-3">
       <% books.forEach(book => { %>
-        <div class="bg-white p-3 shadow hover:shadow-md rounded-md book-card">
+        <div class="bg-white p-3 shadow hover:shadow-md rounded-md book-card" data-title="<%= book.title %>" data-rating="<%= book.rating %>">
           <img src="<%= book.cover %>" alt="<%= book.title %>" class="h-80 w-full object-cover" />
           <p class="text-lg font-semibold mt-2 truncate"><%= book.title %></p>
           <p class="text-gray-600 truncate"><%= book.author %></p>
