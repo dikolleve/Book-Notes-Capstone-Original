@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+
+<div class="bg-gray-200 min-h-screen p-6">
+  <div class="container mx-auto">
+    <a href="/book-notes/add" class="cursor-pointer rounded-md bg-blue-500 px-3 py-2 text-white hover:bg-blue-600">Add Book</a>
+    <h1 class="text-2xl font-semibold mt-5">My Book Notes</h1>
+    <div class="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-5 gap-3">
+      <% books.forEach(book => { %>
+        <div class="bg-white p-3 shadow hover:shadow-md rounded-md">
+          <img src="<%= book.cover %>" alt="<%= book.title %>" class="h-80 w-full object-cover" />
+          <p class="text-lg font-semibold mt-2 truncate"><%= book.title %></p>
+          <p class="text-gray-600 truncate"><%= book.author %></p>
+          <div class="flex space-x-1">
+            <% for(let x = 0; x < 5; x++) { %>
+                  <% if(x < book.rating) { %>
+                    <svg class="h-5 w-5 fill-current text-yellow-500" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09L5.845 12 1 7.91l6.061-.91L10 2l2.939 5 6.061.91L14.155 12l1.723 6.09z" />
+                    </svg>
+                  <% }else{ %>
+                    <svg class="h-5 w-5 fill-current text-gray-500" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09L5.845 12 1 7.91l6.061-.91L10 2l2.939 5 6.061.91L14.155 12l1.723 6.09z" />
+                    </svg>
+                  <% } %>
+            <% } %>
+          </div>
+          <p class="truncate"><%= book.notes %></p>
+          <div class="flex space-x-1 mt-2">
+            <button class="flex-1 bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-md">Edit</button>
+            <form action="/book-notes/delete/<%= book.id %>" method="POST">
+              <button type="submit" class="flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md">Delete</button>
+            </form>
+          </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/footer") %>
