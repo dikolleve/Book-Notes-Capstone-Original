@@ -1,5 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".grid");
+    //this code below is for deletion on book-cards
+    const deleteForms = document.querySelectorAll("form[action^='/book-notes/delete']");
+    deleteForms.forEach(form => {
+        form.addEventListener("submit", (e) => {
+            const confirmed = confirm("Are you sure to delete this book?");
+            if(!confirmed) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    //this code below is for sorting
+    const container = document.querySelector(".grid");``
     const sortBtn = document.querySelectorAll(".sort-btn");
     const bookCards = Array.from(document.querySelectorAll(".book-card"))
 
